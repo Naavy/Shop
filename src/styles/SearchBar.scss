@@ -1,0 +1,19 @@
+.search-bar {
+  width: 100%;
+  background-color: #d677b2;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0px 30px;
+
+  &__input {
+    width: 80%;
+    border-radius: 30px;
+    border: none;
+    height: 50px;
+    padding: 20px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

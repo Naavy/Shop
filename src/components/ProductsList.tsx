@@ -1,8 +1,9 @@
-import * as React from "react"
+import React, { useState, useEffect, useContext } from "react"
 import Product from "./Product"
 import { products } from "../data"
+import { ShopContext } from "../Context/ShopContex"
 
-import "./ProductsList.scss"
+import "../styles/ProductsList.scss"
 
 interface ProductType {
   id: number
@@ -11,14 +12,29 @@ interface ProductType {
   image: string
 }
 
-const ProductsList = () => (
-  <div className="products-wrapper">
-    {products.map((product: ProductType) => {
-      return (
-        <Product price={product.price} image={product.image} key={product.id} />
+const ProductsList = () => {
+  const { text } = useContext(ShopContext)
+  const [productsFound, setProductsFound] = useState<Array<ProductType>>([])
+
+  useEffect(() => {
+    if (text) {
+      const results = products.filter(product =>
+        product.productName.includes(text)
       )
-    })}
-  </div>
-)
+      setProductsFound(results)
+    } else {
+      setProductsFound(products)
+    }
+  }, [text])
+
+  const productsFoundList = productsFound.map((product: ProductType) => {
+    const { productName, price, image, id } = product
+    return (
+      <Product productName={productName} price={price} image={image} key={id} />
+    )
+  })
+
+  return <div className="products">{productsFoundList}</div>
+}
 
 export default ProductsList

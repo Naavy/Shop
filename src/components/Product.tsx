@@ -1,32 +1,44 @@
 import React, { FC, useContext } from "react"
 import { StaticImage } from "gatsby-plugin-image"
-import { FullCostContex } from "../Context/FullCostContex"
+import Price from "./Price"
+import { ShopContext } from "../Context/ShopContex"
+import { checkPrice } from "./Price"
 
-import "./Product.scss"
+import "../styles/Product.scss"
 
-interface ProductProps {
+export interface ProductProps {
+  productName: string
   image: string
   price: number
 }
 
-const Product: FC<ProductProps> = ({ image, price }) => {
-  const { fullCost, setFullCost } = useContext(FullCostContex)
-
+const Product: FC<ProductProps> = ({ productName, image, price }) => {
+  const imageWitdh = 100
+  const imageAlt = `${productName} image`
+  const { fullCost, setFullCost, productsSelected, setProductsSelected } =
+    useContext(ShopContext)
   const addProduct = () => {
-    setFullCost(1)
+    setFullCost(fullCost + checkPrice(price))
+    setProductsSelected(oldArray => [
+      ...oldArray,
+      { productName: productName, image: image, price: price },
+    ])
   }
 
   return (
-    <div className="product-wrapper">
-      <div className="price-wrapper">
-        <div className="price">{price} zł</div>
+    <div className="product">
+      <div className="product__price">
+        <div className="product__price--value">
+          <Price price={price} />
+        </div>
       </div>
       <StaticImage
+        // src={image}
         src="../images/gatsby-astronaut.png"
-        width={100}
-        alt="A Gatsby astronaut"
+        width={imageWitdh}
+        alt={imageAlt}
       />
-      <button className="button-add" onClick={addProduct}>
+      <button className="product__button-add" onClick={addProduct}>
         DO KOSZYKA
       </button>
     </div>
