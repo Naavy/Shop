@@ -1,0 +1,27 @@
+@import "colors.scss";
+
+.button {
+  &__text {
+    background-color: transparent;
+  }
+
+  &__contained {
+    width: 20%;
+    margin-top: 10px;
+    background-color: #d677b2;
+    border: none;
+    border-radius: 10px;
+    color: white;
+  }
+
+  &__outlined {
+    width: 80%;
+    border-radius: 30px;
+    color: $rose-dark;
+    font-weight: bold;
+    border: 3px $rose-dark solid;
+    padding: 10px 20px;
+    background-color: $white;
+    cursor: pointer;
+  }
+}

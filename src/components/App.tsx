@@ -1,6 +1,6 @@
 import React from "react"
 import ProductsList from "../components/ProductsList"
-import ShoppingBasket from "../components/ShoppingBasket"
+import ShoppingCart from "./ShoppingCart"
 import SearchBar from "../components/SearchBar"
 
 import { ShopContextProvider } from "../Context/ShopContex"
@@ -15,7 +15,7 @@ const App = () => {
           <SearchBar />
           <ProductsList />
         </div>
-        <ShoppingBasket />
+        <ShoppingCart />
       </ShopContextProvider>
     </div>
   )

@@ -1,19 +1,19 @@
 export const products = [
   {
     id: 1,
-    productName: "Glen 20",
+    name: "Glen 20",
     price: 30.55555,
     image: "../images/gatsby-astronaut.png",
   },
   {
     id: 2,
-    productName: "Glen",
+    name: "Glen",
     price: 60,
     image: "../images/gatsby-astronaut.png",
   },
   {
     id: 3,
-    productName: "Glen 30",
+    name: "Glen 30",
     price: -40,
     image: "../images/gatsby-astronaut.png",
   },

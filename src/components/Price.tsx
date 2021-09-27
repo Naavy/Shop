@@ -2,6 +2,7 @@ import React, { FC } from "react"
 
 interface PriceProps {
   price: number
+  customClass?: string
 }
 
 export const checkPrice = (price: number) => {
@@ -14,8 +15,8 @@ export const checkPrice = (price: number) => {
   return displayPrice
 }
 
-const Price: FC<PriceProps> = ({ price }) => {
-  return <span>{checkPrice(price)} zł</span>
+const Price: FC<PriceProps> = ({ price, customClass }) => {
+  return <span className={customClass}>{checkPrice(price)} zł</span>
 }
 
 export default Price

@@ -1,46 +1,48 @@
 import React, { FC, useContext } from "react"
-import { StaticImage } from "gatsby-plugin-image"
+import { StaticImage, getImage } from "gatsby-plugin-image"
 import Price from "./Price"
 import { ShopContext } from "../Context/ShopContex"
+import Button from "./Button"
 import { checkPrice } from "./Price"
 
 import "../styles/Product.scss"
 
 export interface ProductProps {
-  productName: string
+  id: number
+  name: string
   image: string
   price: number
 }
 
-const Product: FC<ProductProps> = ({ productName, image, price }) => {
+const Product: FC<ProductProps> = ({ id, name, image, price }) => {
   const imageWitdh = 100
-  const imageAlt = `${productName} image`
+  const imageAlt = `${name} image`
   const { fullCost, setFullCost, productsSelected, setProductsSelected } =
     useContext(ShopContext)
+
   const addProduct = () => {
     setFullCost(fullCost + checkPrice(price))
-    setProductsSelected(oldArray => [
-      ...oldArray,
-      { productName: productName, image: image, price: price },
-    ])
+    if (productsSelected.find(product => product.id === id)) {
+      alert("nie")
+    } else {
+      setProductsSelected(oldArray => [
+        ...oldArray,
+        { id: id, name: name, image: image, price: price },
+      ])
+    }
   }
 
   return (
     <div className="product">
-      <div className="product__price">
-        <div className="product__price--value">
-          <Price price={price} />
-        </div>
-      </div>
+      <Price price={price} customClass="product__price" />
       <StaticImage
-        // src={image}
         src="../images/gatsby-astronaut.png"
         width={imageWitdh}
         alt={imageAlt}
       />
-      <button className="product__button-add" onClick={addProduct}>
+      <Button variant="outlined" handler={addProduct}>
         DO KOSZYKA
-      </button>
+      </Button>
     </div>
   )
 }

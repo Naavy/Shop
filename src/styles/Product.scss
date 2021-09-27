@@ -1,5 +1,7 @@
+@import "colors.scss";
+
 .product {
-  background-color: #f5f9f6;
+  background-color: $green-light;
   width: 260px;
   height: 280px;
   display: flex;
@@ -9,29 +11,17 @@
   box-shadow: 2px 9px 5px -5px rgba(0, 0, 0, 0.52);
   padding: 10px;
   margin: 20px;
+  padding-top: 50px;
+  position: relative;
 
   &__price {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-
-    &--value {
-      color: #72ac70;
-      border: 1px #72ac70 solid;
-      font-size: 12px;
-      padding: 2px 7px;
-      border-radius: 5px;
-    }
-  }
-
-  &__button-add {
-    width: 80%;
-    border-radius: 30px;
-    color: #d571b0;
-    font-weight: bold;
-    border: 3px #d571b0 solid;
-    padding: 10px 20px;
-    background-color: #fff;
-    cursor: pointer;
+    color: $green;
+    border: 1px $green solid;
+    font-size: 12px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }

@@ -7,7 +7,7 @@ import "../styles/ProductsList.scss"
 
 interface ProductType {
   id: number
-  productName: string
+  name: string
   price: number
   image: string
 }
@@ -18,9 +18,7 @@ const ProductsList = () => {
 
   useEffect(() => {
     if (text) {
-      const results = products.filter(product =>
-        product.productName.includes(text)
-      )
+      const results = products.filter(product => product.name.includes(text))
       setProductsFound(results)
     } else {
       setProductsFound(products)
@@ -28,10 +26,8 @@ const ProductsList = () => {
   }, [text])
 
   const productsFoundList = productsFound.map((product: ProductType) => {
-    const { productName, price, image, id } = product
-    return (
-      <Product productName={productName} price={price} image={image} key={id} />
-    )
+    const { name, price, image, id } = product
+    return <Product id={id} name={name} price={price} image={image} key={id} />
   })
 
   return <div className="products">{productsFoundList}</div>

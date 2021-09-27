@@ -1,4 +1,6 @@
 import React, { FC, useState, useContext } from "react"
+import Button from "./Button"
+import Input from "./Input"
 import { ShopContext } from "../Context/ShopContex"
 
 import "../styles/DiscountCode.scss"
@@ -6,40 +8,45 @@ import "../styles/DiscountCode.scss"
 const DiscountCode: FC = () => {
   const { fullCost, setFullCost } = useContext(ShopContext)
   const [code, setCode] = useState<string>("")
+  const [codeIsUsed, setCodeIsUsed] = useState<boolean>(false)
+  const codes = ["SOBRE_10", "SOBRE_20", "SOBRE_30"]
 
-  const changeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(e.target.value)
-  }
   const changeFullCost = (discount: number) => {
-    return fullCost - fullCost * discount
+    return fullCost - fullCost * (discount * 0.01)
   }
   const checkCode = (code: string) => {
-    switch (code) {
-      case "SOBRE_10":
-        setFullCost(changeFullCost(0.1))
-        break
-      case "SOBRE_20":
-        setFullCost(changeFullCost(0.2))
-        break
-      case "SOBRE_30":
-        setFullCost(changeFullCost(0.3))
-        break
-
-      default:
-        alert("Zły kod")
+    if (codes.includes(code)) {
+      if (codeIsUsed) {
+        alert("użyłeś już kodu")
+        return
+      }
+      const discount = codes.find(code => code === code)?.split("_")
+      if (discount) {
+        setFullCost(changeFullCost(Number(discount[1])))
+        setCodeIsUsed(true)
+      }
+    } else {
+      alert("Zły kod")
     }
   }
 
+  console.log(Boolean(fullCost))
+
   return (
     <div className="discount-code">
-      <input
-        onChange={changeCode}
+      <Input
+        change={e => setCode(e.target.value)}
         placeholder="KOD RABATOWY"
-        className="discount-code__input"
-      ></input>
-      <button onClick={() => checkCode(code)} className="discount-code__button">
+        variant="code"
+        value={code}
+      ></Input>
+      <Button
+        handler={() => checkCode(code)}
+        variant="contained"
+        disabled={!Boolean(fullCost)}
+      >
         OK
-      </button>
+      </Button>
     </div>
   )
 }
